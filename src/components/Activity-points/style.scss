@@ -1,0 +1,31 @@
+@media #{$mq7b} {
+    .entries-wrapper {
+        .list-items {
+            padding-bottom: 20px;
+            li {
+                background-color: $font-white;
+                padding: 10px;
+                border-bottom: 1px solid #dedede;
+                &:last-child {
+                    display: flex;
+                    justify-content: space-between;
+                    color: #00a465;
+                    font-weight: 600;
+                    font: 15px $roboto;
+                }
+                p {
+                    font: 15px $roboto;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0;
+                    color: #000000;
+                    span {
+                        color: #00a465;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@media #{$mq7b} {
+    .month-wrapper {
+        padding-top: 30px;
+        h1 {
+            font: 18px $roboto;
+            font-weight: 600;
+            text-indent: 20px;
+        }
+        .list-wrapper {
+            padding-top: 20px;
+            li {
+                background-color: $font-white;
+                padding: 15px;
+                border-bottom: 1px solid #cccccc;
+                font: 18px $roboto;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.d-none {
+    display: none !important;
+}

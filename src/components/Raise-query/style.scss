@@ -1,0 +1,127 @@
+@media #{$mq7b} {
+    .query-wrapper {
+        padding-top: 20px;
+        .mint-pro-logo {
+            display: flex;
+            align-items: center;
+            p {
+                margin-bottom: 0;
+                padding-left: 10px;
+                color: #121617;
+                font: 12px $roboto;
+                font-weight: 600;
+            }
+        }
+        .chat-thread-left {
+            background-color: $font-white;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            padding: 20px;
+            width: 90%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            p {
+                margin-bottom: 0;
+            }
+            .bottom-border {
+                border-bottom: 1px solid #dedede;
+                display: flex;
+                .show-date {
+                    // width: 40px;
+                    // height: 40px;
+                    margin: 0 12px 15px 0;
+                    padding: 7px 8px 5px 9px;
+                    // border-radius: 50%;
+                    background-color: #f5f5f5;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    p {
+                        font: 8px $roboto;
+                        margin-bottom: 0;
+                    }
+                    h1 {
+                        font: 15px $roboto;
+                        margin-bottom: 0;
+                        font-weight: 600;
+                    }
+                }
+                .show-user-details {
+                    width: 100%;
+                    h1 {
+                        font: 18px $roboto;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0;
+                    }
+                    p {
+                        color: #6c7375;
+                    }
+                }
+            }
+            .additional-info {
+                padding-top: 10px;
+                p {
+                    margin-bottom: 0;
+                    span {
+                        display: block;
+                        font-weight: 600;
+                    }
+                }
+            }
+            .options {
+                list-style-type: none;
+                li {
+                    color: #00a465;
+                    border-bottom: 1px solid #dedede;
+                    line-height: 40px;
+                    &:first-child {
+                        border-top: 1px solid #dedede;
+                    }
+                }
+            }
+        }
+        .chat-thread-right {
+            background-color: #c7efff;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 10px;
+            width: 60%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin: 10px 0 20px 120px;
+            p {
+                text-align: center;
+                margin-bottom: 0;
+            }
+        }
+        .input-wrapper {
+            background-color: $font-white;
+            padding: 15px;
+            form {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .form-group {
+                    width: 80%;
+                    margin-bottom: 0;
+                    input {
+                        padding: 20px;
+                        border: 1px solid #111111;
+                    }
+                }
+                .submit-btn {
+                    background-color: #d2d5d6;
+                    border: 0;
+                    &:focus,
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

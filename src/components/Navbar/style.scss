@@ -1,0 +1,33 @@
+@media #{$mq7b} {
+    .navbar-wrapper {
+        display: flex;
+        padding: 15px;
+        height: 56px;
+        @include box-shadow(0 1px 4px 0 rgba(0, 0, 0, 0.24));
+        background-color: $font-white;
+        .icon-wrapper {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            h1 {
+                font: 18px $roboto;
+                padding-left: 20px;
+                font-weight: 600;
+            }
+        }
+        .search-input {
+            position: absolute;
+            width: 90%;
+            height: 56px;
+            top: 0px;
+            right: 0;
+            border: 0;
+            padding-left: 20px;
+            outline: 0;
+            &::placeholder {
+                font: 15px $roboto;
+                opacity: 0.5;
+            }
+        }
+    }
+}

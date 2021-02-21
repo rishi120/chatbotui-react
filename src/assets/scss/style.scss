@@ -1,0 +1,13 @@
+// google fonts import
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "./consts/main.scss";
+@import "./mixins/main.scss";
+@import "./base/main.scss";
+// component styles
+@import "../../components/Navbar/style.scss";
+@import "../../components/Month-selector/style.scss";
+@import "../../components/Entry-selection/style.scss";
+@import "../../components/user-entry/style.scss";
+@import "../../components/Activity-points/style.scss";
+@import "../../components/Raise-query/style.scss";
+@import "../../components/activity-details/style.scss";
