@@ -1,18 +1,19 @@
-@media #{$mq7b} {
-    .chat-thread-left {
-        .button-wrapper {
-            display: flex;
-            justify-content: space-evenly;
-            button {
-                width: 40%;
-                border: 0;
-                &:first-child {
-                    background-color: #6c7375;
-                }
-                &:last-child {
-                    background-color: #00a465;
-                }
+// @media #{$mq7b} {
+.chat-thread-left {
+    .button-wrapper {
+        display: flex;
+        justify-content: space-evenly;
+        button {
+            width: 40%;
+            border: 0;
+            &:first-child {
+                background-color: #6c7375;
+            }
+            &:last-child {
+                background-color: #00a465;
             }
         }
     }
 }
+
+// }

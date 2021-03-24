@@ -1,31 +1,27 @@
-@media #{$mq7b} {
-    .entries-wrapper {
-        .list-items {
-            padding-bottom: 20px;
-            li {
-                background-color: $font-white;
-                padding: 10px;
-                border-bottom: 1px solid #dedede;
-                &:last-child {
-                    display: flex;
-                    justify-content: space-between;
-                    color: #00a465;
-                    font-weight: 600;
-                    font: 15px $roboto;
-                }
-                p {
-                    font: 15px $roboto;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0;
-                    color: #000000;
-                    span {
-                        color: #00a465;
-                        font-weight: 600;
-                    }
-                }
+// @media #{$mq7b} {
+.entries-wrapper {
+    .list-items {
+        padding-bottom: 20px;
+        p {
+            font: 15px $roboto;
+            padding: 20px;
+            color: #000000;
+            margin-bottom: 0;
+            background-color: $font-white;
+            position: relative;
+            cursor: pointer;
+            img {
+                position: absolute;
+                top: 25px;
+                right: 70px;
             }
+        }
+        span {
+            color: #00a465;
+            font-weight: 600;
+            display: block;
         }
     }
 }
+
+// }

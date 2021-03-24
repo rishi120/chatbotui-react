@@ -1,5 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Moment from "react-moment";
+import "moment-timezone";
+import Rightarrow from "../../assets/images/right-arrow.svg";
+import { v4 as uuidv4 } from "uuid";
 
 const Entryheading = (props) => {
   return (
@@ -14,43 +17,24 @@ const UserEntries = (props) => {
   return (
     <div>
       <ul className="user-entry">
+        <p>Select an entry to continue</p>
         {props.entries.map((userEntry) => {
           return (
-            <li key={userEntry.userName}>
-              <Link
-                to={{
-                  pathname: "raise-query",
-                  state: {
-                    userEntry,
-                  },
-                }}
-              >
-                <p>
-                  {userEntry.userName}
-                  <span>{userEntry.points}</span>
-                </p>
-                <p>{userEntry.additionalInfo}</p>
-                <p>Issued on{userEntry.dateIssue}</p>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
-const OfferEntries = (props) => {
-  return (
-    <div>
-      <ul className="offer-entry">
-        {props.entries.map((offerEntry) => {
-          return (
-            <li key={offerEntry.offerName}>
+            <li
+              key={uuidv4()}
+              onClick={() => props.handleSelectUserEntry(userEntry)}
+            >
               <p>
-                {offerEntry.offerName}
-                <span>{offerEntry.points}</span>
+                {userEntry.titles[0]}
+                <span>{userEntry.titles[2]}</span>
               </p>
-              <p>{offerEntry.additionalInfo}</p>
+              <p>{userEntry.titles[3]} </p>
+              <p style={{ justifyContent: "end" }}>
+                Issued on
+                <Moment format="DD-MMM-YYYY" style={{ paddingLeft: "5px" }}>
+                  {userEntry.titles[1]}
+                </Moment>
+              </p>
             </li>
           );
         })}
@@ -59,18 +43,28 @@ const OfferEntries = (props) => {
   );
 };
 
-const CycleEntries = ({ basicEntries }) => {
+const CycleEntries = ({
+  basicEntries,
+  handleSelectUserEntry,
+  handleMonthResult,
+  selectedMonth,
+}) => {
   return (
     <div>
       {basicEntries.map((entry) => {
         return (
-          <div className="wrap-entries" key={entry.entryHeading}>
+          <div className="wrap-entries" key={uuidv4()}>
             <Entryheading
-              heading={entry.entryHeading}
-              description={entry.dateRange}
+              heading={entry.title}
+              description={entry.subtitle}
+              selectedMonth={selectedMonth}
             />
-            {entry.userEntries && <UserEntries entries={entry.userEntries} />}
-            {entry.offers && <OfferEntries entries={entry.offers} />}
+            {entry.dict_list && (
+              <UserEntries
+                entries={entry.dict_list}
+                handleSelectUserEntry={handleSelectUserEntry}
+              />
+            )}
           </div>
         );
       })}

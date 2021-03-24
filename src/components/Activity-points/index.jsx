@@ -1,23 +1,24 @@
 import React from "react";
 import Rightarrow from "../../assets/images/right-arrow.svg";
+import { Link } from "react-router-dom";
 
-const Activitypoints = ({ filterDate }) => {
+const Activitypoints = ({
+  handleMissingPointsClicked,
+  loadingSelectedMonth,
+  showNoData,
+}) => {
   return (
     <>
-      <ul className="list-items">
-        <li>
-          <p>
-            Can't find your activity points?
-            <img src={Rightarrow} alt="right arrow" />
-          </p>
-          <p>
-            <span>Report missing activity points</span>
-          </p>
-        </li>
-        <li>
-          {filterDate} <img src={Rightarrow} alt="right arrow" />
-        </li>
-      </ul>
+      {!loadingSelectedMonth && (
+        <div className="list-items">
+          {/* <p onClick={handleMissingPointsClicked}> */}
+          <p>{showNoData}</p>
+          {/* Can't find your activity points? */}
+          {/* <img src={Rightarrow} alt="right arrow" /> */}
+          {/* <span>Report missing activity points</span> */}
+          {/* </p> */}
+        </div>
+      )}
     </>
   );
 };

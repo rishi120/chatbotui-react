@@ -1,132 +1,225 @@
-import React, { Component } from "react";
+import React, { useRef } from "react";
 import Mintlogo from "../../assets/images/group.svg";
 import Container from "react-bootstrap/Container";
-import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Sendicon from "../../assets/images/ico-solid-send.svg";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import dots from "../../assets/images/dot.gif";
+import cancelIcon from "../../assets/images/cancel-white.png";
+import { v4 as uuidv4 } from "uuid";
 
-class Incorrectinfo extends Component {
-  state = {
-    option: [
-      {
-        options: "Activity Points are incorrect",
-      },
-      {
-        options: "Have not received the payout",
-      },
-      {
-        options: "Need help with the calculation",
-      },
-      {
-        options: "Some other reasons",
-      },
-    ],
-    hideContent: false,
-  };
+/* the below component  will generate the list of issues */
 
-  showIncorrectList = () => {
-    this.setState({
-      hideContent: true,
-    });
+const RenderIncorrectInfo = (props) => {
+  return (
+    <>
+      <Container>
+        <div className="chat-thread-right">
+          <p>No, it looks incorrect</p>
+        </div>
 
-    // const selectInput = document.getElementById("focusInput");
-    // // selectInput.focus();
-    // console.log(selectInput);
-  };
-  render() {
-    /* the below component  will generate the list of issues */
-    const RenderIncorrectInfo = ({ option }) => {
-      return (
-        <>
-          <Container>
-            <div className="chat-thread-right">
-              <p>No, it looks incorrect</p>
-            </div>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>Mint Pro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p style={{ marginBottom: "15px" }}>
+            Please help us understand your concern by selecting your issue
+          </p>
+          <ul className="options">
+            {props.issueOptionList.map((issues) => {
+              return (
+                <li
+                  key={uuidv4()}
+                  onClick={() =>
+                    props.handleShowIssueOptionList(issues.text, issues.issueId)
+                  }
+                >
+                  {issues.text}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Container>
+    </>
+  );
+};
 
-            <div className="mint-pro-logo">
-              <img src={Mintlogo} alt="logo" />
-              <p>Mint Pro</p>
-            </div>
-            <div className="chat-thread-left">
-              <p>
-                Please help us understand your concern by selecting your issue
-              </p>
-              <ul className="options">
-                {this.state.option.map((issues) => {
-                  return (
-                    <li key={issues.options} onClick={this.showIncorrectList}>
-                      {issues.options}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </Container>
-        </>
-      );
-    };
-
-    /* the below component is to show the other details including the input field based on the issues user will be selecting */
-
-    const Showmorecontent = () => {
-      return (
-        <>
-          <Container>
-            <div className="chat-thread-right">
-              <p>Activity points are selected</p>
-            </div>
-
-            <div className="mint-pro-logo">
-              <img src={Mintlogo} alt="logo" />
-              <p>Mint Pro</p>
-            </div>
-            <div className="chat-thread-left">
-              <p>Please provide more details about your issue</p>
-            </div>
-          </Container>
-          <div className="input-wrapper">
-            <Container fluid>
-              {/* <input type="text" /> */}
-              <Row>
-                <Form>
-                  <Form.Group>
-                    <Form.Control
-                      size="sm"
-                      type="text"
-                      placeholder="Type details of issue"
-                      required
-                      onChange={this.activaButton}
-                      // id="focusInput"
-                    />
-                  </Form.Group>
-                  <Button type="submit" className="submit-btn">
-                    <img src={Sendicon} alt="send icon" />
-                  </Button>
-                </Form>
-              </Row>
-            </Container>
-          </div>
-        </>
-      );
-    };
-
-    const Rendermorecontent = () => {
-      const stateCheck = this.state.hideContent;
-      if (stateCheck) {
-        return <Showmorecontent />;
-      }
-      return null;
-    };
+const Renderticketmessage = (props) => {
+  const checkTicketState = props.ticketCreated;
+  if (checkTicketState) {
     return (
-      <>
-        <RenderIncorrectInfo />
-        <Rendermorecontent />
-      </>
+      <div className="thank-you-popup">
+        <img
+          src={cancelIcon}
+          alt="cancel"
+          className="cancel-image"
+          onClick={props.handleTicketPopUp}
+        />
+        <p style={{ textAlign: "center" }}>
+          Your Ticket has been successfully created.A zendesk executive will
+          revert you back soon.
+        </p>
+      </div>
     );
   }
-}
+  return null;
+};
+
+const Rendererrormessage = (props) => {
+  const checkErrorStatus = props.errorMessage;
+  if (checkErrorStatus) {
+    return (
+      <div className="thank-you-popup" style={{ backgroundColor: "#f00" }}>
+        <img
+          src={cancelIcon}
+          alt="cancel"
+          className="cancel-image"
+          style={{ width: "20px" }}
+          onClick={props.handleIncorrectErrorPopup}
+        />
+        <p style={{ textAlign: "center" }}>Please provide a proper response</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const Renderfetcherror = (props) => {
+  return (
+    <p
+      style={{
+        fontSize: "15px",
+        color: "#f00",
+        padding: "10px",
+        paddingBottom: "0",
+        paddingTop: "0",
+        margin: "0",
+      }}
+    >
+      {props.errorFetchApi}
+    </p>
+  );
+};
+
+/* the below component is to show the other details including the input field based on the issues user will be selecting */
+
+const Showmorecontent = (props) => {
+  return (
+    <>
+      <Renderticketmessage
+        ticketCreated={props.ticketCreated}
+        handleTicketPopUp={props.handleTicketPopUp}
+        errorMessage={props.errorMessage}
+      />
+      <Container>
+        <div className="chat-thread-right">
+          <p>{props.selectedIssueOptionList}</p>
+        </div>
+
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>Mint Pro</p>
+        </div>
+        <div className="chat-thread-left">
+          {props.loadingAnyOtherQuestion && (
+            <p
+              style={{
+                marginBottom: 0,
+                paddingLeft: "10px",
+                fontStyle: "italic",
+              }}
+            >
+              <img src={dots} alt="dots" style={{ width: "50px" }} />
+              Mint Pro is Typing...
+            </p>
+          )}
+          <p>{props.showAnyOtherQuestion}</p>
+          <p style={{ color: "#f00" }}>{props.errorMessage}</p>
+          <Rendererrormessage
+            errorMessage={props.errorMessage}
+            handleIncorrectErrorPopup={props.handleIncorrectErrorPopup}
+          />
+          <Renderfetcherror errorFetchApi={props.errorFetchApi} />
+        </div>
+      </Container>
+      <div className="input-wrapper" style={{ backgroundColor: "transparent" }}>
+        <div className="fix-form-wrapper" style={{ padding: "10px" }}>
+          <Form
+            className="chat-form"
+            onSubmit={props.handleIncorrectInfoFormSubmit}
+          >
+            <Form.Group>
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Type details of issue"
+                required
+                ref={props.focusIncorrectInputField}
+                id="getIncorrectInfoInputValue"
+                autoComplete="off"
+              />
+            </Form.Group>
+            <Button type="submit" className="submit-btn">
+              <img src={Sendicon} alt="send icon" />
+            </Button>
+          </Form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Rendermorecontent = (props) => {
+  const stateCheck = props.showIssueOptionList;
+  if (stateCheck) {
+    return (
+      <Showmorecontent
+        showAnyOtherQuestion={props.showAnyOtherQuestion}
+        loadingAnyOtherQuestion={props.loadingAnyOtherQuestion}
+        focusIncorrectInputField={props.focusIncorrectInputField}
+        selectedIssueOptionList={props.selectedIssueOptionList}
+        handleIncorrectInfoFormSubmit={props.handleIncorrectInfoFormSubmit}
+        ticketCreated={props.ticketCreated}
+        handleTicketPopUp={props.handleTicketPopUp}
+        errorMessage={props.errorMessage}
+        handleErrorPopUp={props.handleErrorPopUp}
+        inputFocusField={props.inputFocusField}
+        handleIncorrectErrorPopup={props.handleIncorrectErrorPopup}
+        errorFetchApi={props.errorFetchApi}
+      />
+    );
+  }
+  return null;
+};
+
+const Incorrectinfo = (props) => {
+  // console.log(props.focusIncorrectInputField);
+  return (
+    <>
+      <RenderIncorrectInfo
+        issueOptionList={props.issueOptionList}
+        handleShowIssueOptionList={props.handleShowIssueOptionList}
+      />
+      <Rendermorecontent
+        showAnyOtherQuestion={props.showAnyOtherQuestion}
+        loadingAnyOtherQuestion={props.loadingAnyOtherQuestion}
+        focusIncorrectInputField={props.focusIncorrectInputField}
+        selectedIssueOptionList={props.selectedIssueOptionList}
+        showIssueOptionList={props.showIssueOptionList}
+        handleIncorrectInfoFormSubmit={props.handleIncorrectInfoFormSubmit}
+        ticketCreated={props.ticketCreated}
+        handleTicketPopUp={props.handleTicketPopUp}
+        errorMessage={props.errorMessage}
+        focusIncorrectInputField={props.focusIncorrectInputField}
+        handleErrorPopUp={props.handleErrorPopUp}
+        handleIncorrectErrorPopup={props.handleIncorrectErrorPopup}
+        errorFetchApi={props.errorFetchApi}
+      />
+    </>
+  );
+};
 
 export default Incorrectinfo;

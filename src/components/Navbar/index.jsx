@@ -4,8 +4,9 @@ import Navicon from "../../assets/images/navigate.svg";
 import Searchicon from "../../assets/images/search.svg";
 import clsx from "clsx";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [showInput, setShowInput] = useState(false);
+  const [showNavicon, setShowNavicon] = useState(false);
   const searchRef = useRef(null); // searchref = an object
   /* searchref ===  {
 current : null
@@ -19,16 +20,29 @@ Chandan: "Person"}
 searchref.Chandan = "Person" */
   function handleShowInput() {
     setShowInput(true);
-    searchRef.current.focus();
+    setShowNavicon(true);
+
+    setTimeout(() => {
+      searchRef.current.focus();
+    }, 300);
+    // searchRef.current.focus();
   }
+  const Rendernavicon = () => {
+    const checkNaviconStatus = showNavicon;
+    if (checkNaviconStatus) {
+      return <img src={Navicon} alt="Nav Icon" onClick={handleHideInput} />;
+    }
+    return null;
+  };
   function handleHideInput() {
     setShowInput(false);
+    setShowNavicon(false);
   }
   return (
     <section>
       <div className="navbar-wrapper">
         <div>
-          <img src={Navicon} alt="Nav Icon" onClick={handleHideInput} />
+          <Rendernavicon />
         </div>
         <div className="icon-wrapper">
           <h1>Activity Points</h1>
