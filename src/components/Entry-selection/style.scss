@@ -1,9 +1,29 @@
 // @media #{$mq7b} {
 .entries-wrapper {
+    .mint-pro-logo {
+        display: flex;
+        align-items: center;
+        padding-bottom: 4px;
+        img {
+            width: 16px;
+            height: 16px;
+            @include border-radius(50%);
+            background-color: $font-white;
+            padding: 2px;
+        }
+        p {
+            margin-bottom: 0;
+            padding-left: 5px;
+            font: 12px $roboto;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #121617;
+        }
+    }
     p {
         font: 15px $roboto;
-        color: #6c7375;
-        padding: 0 0 0 10px;
+        color: $black-gradient;
+        // padding: 0 0 0 10px;
     }
     .entries {
         padding: 30px 0 0 0;

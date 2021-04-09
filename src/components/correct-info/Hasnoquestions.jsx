@@ -11,15 +11,15 @@ const Renderthankyoumessage = (props) => {
   const checkThankYouStatus = props.thankYou;
   if (checkThankYouStatus) {
     return (
-      <div className="thank-you-popup">
-        <img
-          src={cancelIcon}
-          alt="cancel"
-          className="cancel-image"
-          onClick={props.handlePopup}
-        />
-        <p style={{ textAlign: "center" }}>Thank You for your response!</p>
-      </div>
+      <>
+        <div className="mint-pro-logo" style={{ marginTop: "15px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left" style={{ marginBottom: "20px" }}>
+          <p style={{ textAlign: "center" }}>Thank You for your response!</p>
+        </div>
+      </>
     );
   }
   return null;
@@ -45,14 +45,13 @@ const Renderfetcherror = (props) => {
 const Hasnoquestions = (props) => {
   return (
     <>
-      <Renderthankyoumessage
-        thankYou={props.thankYou}
-        handlePopup={props.handlePopup}
-      />
       <Container>
-        <div className="chat-thread-right">
-          <p>No, I don't have any questions.</p>
+        <div className="grid-right">
+          <div className="chat-thread-right">
+            <p>No, I don't have any questions.</p>
+          </div>
         </div>
+
         <div className="rating-wrapper">
           {props.loadingAnyOtherQuestion && (
             <p
@@ -87,6 +86,11 @@ const Hasnoquestions = (props) => {
           <p className="show-rating-message" id="disp-block">
             {props.showRatingMessage}
           </p>
+
+          <Renderthankyoumessage
+            thankYou={props.thankYou}
+            handlePopup={props.handlePopup}
+          />
           <Button
             type="button"
             onClick={props.handleThankyouMessage}

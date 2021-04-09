@@ -12,18 +12,18 @@ const Renderticketmessage = (props) => {
   const checkTicketState = props.ticketCreated;
   if (checkTicketState) {
     return (
-      <div className="thank-you-popup">
-        <img
-          src={cancelIcon}
-          alt="cancel"
-          className="cancel-image"
-          onClick={props.handleTicketPopUp}
-        />
-        <p style={{ textAlign: "center" }}>
-          Your Ticket has been successfully created.A zendesk executive will
-          revert you back soon.
-        </p>
-      </div>
+      <>
+        <div className="mint-pro-logo" style={{ marginTop: "20px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p style={{ textAlign: "center", fontSize: "13px" }}>
+            Your Ticket has been successfully created.A zendesk executive will
+            revert you back soon.
+          </p>
+        </div>
+      </>
     );
   }
   return null;
@@ -33,16 +33,17 @@ const Rendererrormessage = (props) => {
   const checkErrorStatus = props.errorMessage;
   if (checkErrorStatus) {
     return (
-      <div className="thank-you-popup" style={{ backgroundColor: "#f00" }}>
-        <img
-          src={cancelIcon}
-          alt="cancel"
-          className="cancel-image"
-          style={{ width: "20px" }}
-          onClick={props.handleErrorPopUp}
-        />
-        <p style={{ textAlign: "center" }}>Please provide a proper response</p>
-      </div>
+      <>
+        <div className="mint-pro-logo" style={{ marginTop: "20px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p style={{ textAlign: "center" }}>
+            Please provide a proper response
+          </p>
+        </div>
+      </>
     );
   }
   return null;
@@ -65,21 +66,59 @@ const Renderfetcherror = (props) => {
   );
 };
 
+const Renderusermessage = (props) => {
+  const checkComponentStatus = props.showUserMessageComponent;
+  if (checkComponentStatus) {
+    return (
+      <div className="grid-right">
+        <div className="chat-thread-right">
+          <p>{props.showUserMessage}</p>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+const Renderzendeskloader = (props) => {
+  const checkLoaderState = props.showZendeskLoader;
+  if (checkLoaderState) {
+    return (
+      <>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left" style={{ padding: "10px" }}>
+          <p
+            style={{
+              marginBottom: 0,
+              fontStyle: "italic",
+              paddingRight: "10px",
+            }}
+          >
+            <img src={dots} alt="dots" style={{ width: "50px" }} />
+            MintPro is Typing...
+          </p>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
+
 const Hasmorequestions = (props) => {
   return (
     <>
-      <Renderticketmessage
-        ticketCreated={props.ticketCreated}
-        handleTicketPopUp={props.handleTicketPopUp}
-      />
       <Container>
-        <div className="chat-thread-right">
-          <p>Yes, I have more question.</p>
+        <div className="grid-right">
+          <div className="chat-thread-right">
+            <p>Yes, I have more question.</p>
+          </div>
         </div>
 
         <div className="mint-pro-logo">
           <img src={Mintlogo} alt="logo" />
-          <p>Mint Pro</p>
+          <p>MintPro</p>
         </div>
         <div className="chat-thread-left">
           {props.loadingAnyOtherQuestion && (
@@ -91,21 +130,30 @@ const Hasmorequestions = (props) => {
               }}
             >
               <img src={dots} alt="dots" style={{ width: "50px" }} />
-              Mint Pro is Typing...
+              MintPro is Typing...
             </p>
           )}
           <p>{props.showAnyOtherQuestion}</p>
-          <Rendererrormessage
-            errorMessage={props.errorMessage}
-            handleErrorPopUp={props.handleErrorPopUp}
-          />
           <Renderfetcherror errorFetchApi={props.errorFetchApi} />
         </div>
+        <Rendererrormessage
+          errorMessage={props.errorMessage}
+          handleErrorPopUp={props.handleErrorPopUp}
+        />
+        <Renderusermessage
+          showUserMessageComponent={props.showUserMessageComponent}
+          showUserMessage={props.showUserMessage}
+        />
+        <Renderzendeskloader showZendeskLoader={props.showZendeskLoader} />
+        <Renderticketmessage
+          ticketCreated={props.ticketCreated}
+          handleTicketPopUp={props.handleTicketPopUp}
+        />
       </Container>
       <div className="input-wrapper" style={{ backgroundColor: "transparent" }}>
         <div className="fix-form-wrapper" style={{ padding: "10px" }}>
           <Form className="chat-form" onSubmit={props.handleFormSubmit}>
-            <Form.Group>
+            <Form.Group style={{ width: "80%", marginBottom: "0" }}>
               <Form.Control
                 size="sm"
                 type="text"
@@ -114,9 +162,14 @@ const Hasmorequestions = (props) => {
                 ref={props.inputFocusField}
                 id="getValue"
                 autoComplete="off"
+                onChange={props.hideErrorMessage}
               />
             </Form.Group>
-            <Button type="submit" className="submit-btn">
+            <Button
+              type="submit"
+              className="submit-btn"
+              ref={props.disabledBtn}
+            >
               <img src={Sendicon} alt="send icon" />
             </Button>
           </Form>

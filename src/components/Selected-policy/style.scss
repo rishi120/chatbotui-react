@@ -1,27 +1,49 @@
 // @media #{$mq7b} {
-.show-month-data {
+.mint-pro-logo {
     display: flex;
-    justify-content: space-between;
-    background: #fff;
-    padding: 15px;
     align-items: center;
-    color: #00a465;
-    font-weight: 600;
-    text-indent: 10px;
-    margin-bottom: 20px;
-    font: 18px $roboto;
-    cursor: pointer;
+    // padding-bottom: 10px;
     img {
-        padding-right: 50px;
+        width: 16px;
+        height: 16px;
+        @include border-radius(50%);
+        background-color: $font-white;
+        padding: 2px;
+    }
+    p {
+        margin-bottom: 0;
+        padding-left: 5px;
+        font: 12px $roboto;
+        font-weight: 600;
+        letter-spacing: 0.8px;
     }
 }
 
-// hr {
-//     width: 80%;
-//     margin-left: 20px;
-//     margin-top: 0;
-//     border: 1px solid #00a465;
-// }
+.chat-thread-left {
+    background-color: $font-white;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: 1px solid #d2d5d6;
+    padding: 15px;
+    margin-top: 4px;
+    margin-bottom: 0;
+    width: auto;
+    max-width: 80%;
+    display: inline-block;
+    .show-month-data {
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        align-items: center;
+        color: #00a465;
+        font-weight: 600;
+        margin-bottom: 0;
+        font: 15px $roboto;
+        cursor: pointer;
+    }
+}
+
 .query-wrapper {
     padding: 20px 0 100px 0;
     // position: relative;
@@ -32,12 +54,20 @@
     .mint-pro-logo {
         display: flex;
         align-items: center;
+        img {
+            width: 16px;
+            height: 16px;
+            @include border-radius(50%);
+            background-color: $font-white;
+            padding: 2px;
+        }
         p {
             margin-bottom: 0;
-            padding-left: 10px;
+            padding-left: 5px;
             color: #121617;
             font: 12px $roboto;
             font-weight: 600;
+            letter-spacing: 0.8px;
         }
     }
     .chat-thread-left {
@@ -45,28 +75,37 @@
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
         border-bottom-left-radius: 20px;
-        padding: 20px;
-        margin-top: 10px;
-        margin-bottom: 20px;
-        width: 100%;
+        border: 1px solid #d2d5d6;
+        padding: 15px;
+        margin-top: 4px;
+        margin-bottom: 0;
+        width: auto;
+        max-width: 80%;
+        display: inline-block;
         .option-list-style {
             list-style-type: none;
+            margin-bottom: 0;
             li {
                 border-bottom: 1px solid #dedede;
                 padding: 10px 0;
                 color: #00a465;
+                &:last-of-type {
+                    border: 0;
+                    padding-bottom: 0;
+                }
             }
         }
         p {
             margin-bottom: 0;
-            font-size: 15px;
+            font-size: 14px !important;
+            text-align: left !important;
         }
         .bottom-border {
             border-bottom: 1px solid #dedede;
             display: flex;
             .show-date {
-                // width: 40px;
-                // height: 40px;
+                width: 40px;
+                height: 40px;
                 margin: 0 12px 15px 0;
                 padding: 7px 8px 5px 9px;
                 // border-radius: 50%;
@@ -76,8 +115,13 @@
                 justify-content: center;
                 @include border-radius(50px);
                 time {
-                    font: 12px $roboto;
+                    &:first-child {
+                        font: 8px $roboto;
+                    }
+                    font: 16px $roboto;
                     margin-bottom: 0;
+                    font-weight: 600;
+                    text-align: center !important;
                 }
                 h1 {
                     font: 15px $roboto;
@@ -88,13 +132,15 @@
             .show-user-details {
                 width: 100%;
                 h1 {
-                    font: 18px $roboto;
+                    font: 16px $roboto;
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 0;
+                    margin-bottom: 5px;
                 }
                 p {
-                    color: #6c7375;
+                    color: $black-gradient;
+                    font: 14px $roboto !important;
+                    letter-spacing: 0.5px;
                 }
             }
         }
@@ -110,25 +156,22 @@
         }
         .options {
             list-style-type: none;
+            margin-bottom: 0;
             li {
                 color: #00a465;
                 border-bottom: 1px solid #dedede;
                 line-height: 40px;
-                text-indent: 10px;
                 &:first-child {
                     border-top: 1px solid #dedede;
+                }
+                &:last-of-type {
+                    border: 0;
                 }
             }
         }
     }
     .query-thread {
         padding: 0 10px 0 10px;
-        // .form-group {
-        //     // &:last-child {
-        //     //     // border-bottom: 1px solid #dedede;
-        //     //     padding-bottom: 15px;
-        //     // }
-        // }
         .form-submit-btn {
             background-color: #d2d5d6;
             width: 100%;
@@ -138,26 +181,28 @@
             font: 16px $roboto;
         }
     }
-    .chat-thread-right {
-        background-color: #c7efff;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        padding: 10px;
-        width: 60%;
-        // margin-top: 10px;
-        // margin-bottom: 20px;
-        margin: 10px 0 20px 120px;
-        p {
-            text-align: right;
-            margin-bottom: 0;
-            padding-right: 10px;
+    .grid-right {
+        display: flex;
+        justify-content: flex-end;
+        .chat-thread-right {
+            background-color: #c7efff;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: 1px solid #d2d5d6;
+            padding: 10px;
+            width: auto;
+            max-width: 80%;
+            display: inline-block;
+            margin: 10px 0 0 0;
+            p {
+                text-align: right;
+                margin-bottom: 0;
+            }
         }
     }
     .input-wrapper {
         background-color: $font-white;
-        padding: 15px;
-        // margin-bottom: 80px;
     }
     .fix-form-wrapper {
         width: 100%;
@@ -174,27 +219,27 @@
     }
     width: 100%;
     left: 0;
-    // background: $font-white;
-    // border-top: 1px solid;
     .chat-form {
-        width: 90%;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 10px 10px 10px;
+        padding: 0 10px 0 10px;
         margin: auto;
-        margin-bottom: 10px;
+        margin-bottom: 0;
         .form-group {
             width: 80%;
             margin-bottom: 0;
             input {
                 padding: 20px;
-                border: 1px solid #111111;
+                border: 1px solid #d2d5d6;
+                height: 48px;
             }
         }
         .submit-btn {
             background-color: #00a465;
             border: 0;
+            height: 48px;
             &:focus,
             &:hover {
                 background-color: transparent;
@@ -202,16 +247,14 @@
         }
     }
     .thank-you-popup {
-        position: absolute;
-        background-color: #00a465;
+        // position: absolute;
+        // background-color: #00a465;
         width: 90%;
-        left: 0;
-        right: 0;
-        top: 10px;
-        margin: auto;
-        padding: 12px;
+        // left: 0;
+        // right: 0;
+        // top: 10px;
         @include border-radius(20px);
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 10px;
+        // box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 10px;
         z-index: 10;
         .cancel-image {
             width: 15px;
@@ -221,7 +264,9 @@
         }
         p {
             margin-bottom: 0;
-            color: $font-white;
+            color: $black-gradient;
+            text-align: left;
+            font-size: 15px !important;
         }
     }
 }

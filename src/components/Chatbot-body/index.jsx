@@ -75,7 +75,13 @@ const Chatbotbody = (props) => {
   const [haveAnyOtherQuestion, setHaveAnyOtherQuestion] = useState();
   const [yesHaveMoreQuestions, setYesHaveMoreQuestions] = useState();
   const [noIHaveNoQuestions, setNoIHaveNoQuestions] = useState();
-  // const [customerNameResponse, setCustomerNameResponse] = useState("");
+  const [showMonthBubble, setShowMonthBubble] = useState(false);
+  const [failedTicket, setFailedTicket] = useState("");
+  const [showUserMessageComponent, setShowUserMessageComponent] = useState(
+    false
+  );
+  const [showUserMessage, setShowUserMessage] = useState("");
+  const [showZendeskLoader, setShowZendeskLoader] = useState(false);
   const [showMoreQuestion, setShowMoreQuestion] = useState({
     Question: "Yes, I have more question.",
   });
@@ -88,6 +94,9 @@ const Chatbotbody = (props) => {
   const focusInputField = useRef(null);
   const inputFocusField = useRef(null);
   const focusIncorrectInputField = useRef(null);
+  const removeBorder = useRef(0);
+  const noBorder = useRef(0);
+  const disabledBtn = useRef(null);
 
   useEffect(() => {
     /* implementing axios to fetch the api to get all the relevent months */
@@ -103,6 +112,7 @@ const Chatbotbody = (props) => {
       })
       .catch(function () {
         setMonthLoading(false);
+        setGetMonths([]);
         setErrorFetchApi(
           "Opps! Your data could not be loaded, Please refresh your browser and Try Again"
         );
@@ -178,7 +188,10 @@ const Chatbotbody = (props) => {
       const dataObj = {
         query: getinputValue,
       };
-      // setErrorMessage(true);
+      setShowUserMessageComponent(true);
+      setShowUserMessage(getinputValue);
+      setShowZendeskLoader(true);
+
       Axios({
         method: "post",
         url: "https://turtlemintsupport.zendesk.com/api/v2/tickets.json",
@@ -197,7 +210,11 @@ const Chatbotbody = (props) => {
       })
         .then((response) => {
           setTicketCreated(true);
-          // setErrorMessage(false);
+          setShowZendeskLoader(false);
+          setTimeout(() => {
+            inputFocusField.current.disabled = "disabled";
+            disabledBtn.current.setAttribute("disabled", "disabled");
+          }, 300);
         })
         .catch((error) => {
           console.log("failed");
@@ -239,7 +256,10 @@ const Chatbotbody = (props) => {
       const dataObj = {
         query: getinputValue,
       };
-      // setErrorMessage(true);
+      setShowUserMessageComponent(true);
+      setShowUserMessage(getinputValue);
+      setShowZendeskLoader(true);
+
       Axios({
         method: "post",
         url: "https://turtlemintsupport.zendesk.com/api/v2/tickets.json",
@@ -259,6 +279,11 @@ const Chatbotbody = (props) => {
         .then((response) => {
           setTicketCreated(true);
           setErrorMessage(false);
+          setShowZendeskLoader(false);
+          setTimeout(() => {
+            inputFocusField.current.disabled = "disabled";
+            disabledBtn.current.setAttribute("disabled", "disabled");
+          }, 300);
         })
         .catch((error) => {
           console.log("failed");
@@ -274,6 +299,10 @@ const Chatbotbody = (props) => {
     if (getListId === 1) {
       setSaleTypeLoader(true);
       setErrorFetchApi("");
+      // setTimeout(() => {
+      //   noBorder.current.style.borderBottom = "none";
+      // }, 300);
+
       Axios.get(
         "https://s7ju9b1vm0.execute-api.ap-southeast-1.amazonaws.com/CORS2/resp?query=Missing Points for sale &userID=as231"
       )
@@ -298,9 +327,11 @@ const Chatbotbody = (props) => {
       );
     } else if (getListId === 2) {
       setLoadingAnyOtherQuestion(true);
+
       setTimeout(() => {
         // inputFocusField.current.disabled = "disabled";
         inputFocusField.current.focus();
+        // noBorder.current.style.borderBottom = "none";
       }, 300);
       setErrorFetchApi("");
       Axios.get(
@@ -329,10 +360,10 @@ const Chatbotbody = (props) => {
           return i.listId === 2 ? true : false;
         })
       );
-      setTimeout(() => {
-        inputFocusField.current.focus();
-      }, 300);
     } else if (getListId === 3) {
+      // setTimeout(() => {
+      //   noBorder.current.style.borderBottom = "none";
+      // }, 300);
       setSaleTypeLoader(true);
       // setTimeout(() => {
       //   inputFocusField.current.disabled = "disabled";
@@ -488,7 +519,6 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[8])
     ) {
       setErrorMessage(true);
-      // setshowAnyOtherQuestion("");
       setTimeout(() => {
         focusInput.current.focus();
       }, 300);
@@ -509,6 +539,9 @@ const Chatbotbody = (props) => {
               customerName: response.data.Text,
             });
             setLoadingAnyOtherQuestion(false);
+            setTimeout(() => {
+              disabledBtn.current.disabled = "disabled";
+            }, 300);
           })
           .catch((error) => {
             console.log("Error");
@@ -564,7 +597,10 @@ const Chatbotbody = (props) => {
           .then((response) => {
             console.log(response);
             setTicketCreated(true);
-            // setErrorMessage(false);
+            setTimeout(() => {
+              focusInput.current.disabled = "disabled";
+              disabledBtn.current.setAttribute("disabled", "disabled");
+            }, 300);
           })
           .catch((error) => {
             console.log("failed");
@@ -587,6 +623,11 @@ const Chatbotbody = (props) => {
 
   const handleReplyText = (newReplyText) => {
     setReplyText(newReplyText);
+    setErrorMessage(false);
+  };
+
+  const hideErrorMessage = () => {
+    setErrorMessage(false);
   };
 
   const handleSelectUserEntry = (userEntry) => {
@@ -599,9 +640,10 @@ const Chatbotbody = (props) => {
     setLoadingSelectedMonth(true);
     setMissingPointsClicked(false);
     setSelectedUserEntry(false);
+    setSelectedMonth(month);
+    setShowMonthBubble(true);
+    setGetMonths([]);
     setEntries([]);
-    const selectDiv = document.getElementById("hide-month-list");
-    selectDiv.style.display = "none";
     setErrorFetchApi("");
     Axios.get(
       `https://s7ju9b1vm0.execute-api.ap-southeast-1.amazonaws.com/CORS2/resp?query=${month}&userID=aasdqw123`
@@ -716,7 +758,9 @@ const Chatbotbody = (props) => {
       const dataObj = {
         query: getinputValue,
       };
-      // setErrorMessage(true);
+      setShowUserMessageComponent(true);
+      setShowUserMessage(getinputValue);
+      setShowZendeskLoader(true);
       Axios({
         method: "post",
         url: "https://turtlemintsupport.zendesk.com/api/v2/tickets.json",
@@ -736,6 +780,11 @@ const Chatbotbody = (props) => {
         .then((response) => {
           setTicketCreated(true);
           setErrorMessage(false);
+          setShowZendeskLoader(false);
+          setTimeout(() => {
+            focusIncorrectInputField.current.disabled = "disabled";
+            disabledBtn.current.disabled = "disabled";
+          }, 300);
         })
         .catch((error) => {
           console.log("failed");
@@ -761,6 +810,7 @@ const Chatbotbody = (props) => {
       .then((response) => {
         setshowAnyOtherQuestion(response.data.Text);
         setLoadingAnyOtherQuestion(false);
+        removeBorder.current.style.display = "none";
         setTimeout(() => {
           inputFocusField.current.removeAttr = "disabled";
         }, 300);
@@ -788,6 +838,7 @@ const Chatbotbody = (props) => {
       .then((response) => {
         setShowNoOtherQuestion(response.data.Text);
         setLoadingAnyOtherQuestion(false);
+        removeBorder.current.style.display = "none";
       })
       .catch((error) => {
         setErrorFetchApi(
@@ -828,6 +879,7 @@ const Chatbotbody = (props) => {
   function handleMonthResult() {
     setMonthWiseResult(true);
     setEntries([]);
+    setShowNoData("Select Activity Points");
   }
 
   function handleErrorPopUp() {
@@ -873,7 +925,6 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[8])
     ) {
       setErrorMessage(true);
-      // setshowAnyOtherQuestion(response.data.Text);
       setTimeout(() => {
         inputFocusField.current.focus();
       }, 300);
@@ -881,7 +932,9 @@ const Chatbotbody = (props) => {
       const dataObj = {
         query: getinputValue,
       };
-      // setErrorMessage(true);
+      setShowUserMessageComponent(true);
+      setShowUserMessage(getinputValue);
+      setShowZendeskLoader(true);
       Axios({
         method: "post",
         url: "https://turtlemintsupport.zendesk.com/api/v2/tickets.json",
@@ -900,7 +953,13 @@ const Chatbotbody = (props) => {
       })
         .then((response) => {
           setTicketCreated(true);
+          setShowUserMessageComponent(false);
           setErrorMessage(false);
+          setShowZendeskLoader(false);
+          setTimeout(() => {
+            inputFocusField.current.disabled = "disabled";
+            disabledBtn.current.setAttribute("disabled", "disabled");
+          }, 300);
         })
         .catch((error) => {
           console.log("failed");
@@ -927,6 +986,8 @@ const Chatbotbody = (props) => {
             loadingSelectedMonth={loadingSelectedMonth}
             monthLoading={monthLoading}
             errorFetchApi={errorFetchApi}
+            selectedMonth={selectedMonth}
+            showMonthBubble={showMonthBubble}
           />
           {selectedMonth && (
             <Entries
@@ -999,6 +1060,12 @@ const Chatbotbody = (props) => {
               yesHaveMoreQuestions={yesHaveMoreQuestions}
               noIHaveNoQuestions={noIHaveNoQuestions}
               saleTypeLoader={saleTypeLoader}
+              removeBorder={removeBorder}
+              showUserMessage={showUserMessage}
+              showUserMessageComponent={showUserMessageComponent}
+              showZendeskLoader={showZendeskLoader}
+              disabledBtn={disabledBtn}
+              hideErrorMessage={hideErrorMessage}
             />
           )}
           {selectedMonth && missingPointsClicked && (
@@ -1044,6 +1111,12 @@ const Chatbotbody = (props) => {
               errorFetchApi={errorFetchApi}
               queryInputDisabled={queryInputDisabled}
               handleMissingErrorPopup={handleMissingErrorPopup}
+              noBorder={noBorder}
+              showUserMessage={showUserMessage}
+              showUserMessageComponent={showUserMessageComponent}
+              showZendeskLoader={showZendeskLoader}
+              disabledBtn={disabledBtn}
+              hideErrorMessage={hideErrorMessage}
             />
           )}
         </div>
@@ -1103,7 +1176,6 @@ const Triggerchatbody = (props) => {
   }
 
   const handleTicketPopUp = () => {
-    console.log("hi");
     setChatBody(false);
     setShowCloseIcon(true);
   };
@@ -1184,6 +1256,8 @@ const Triggerchatbody = (props) => {
   const handleCloseIcon = () => {
     setChatBody(false);
     setShowCloseIcon(true);
+    setThankYou(false);
+    setSkipStep("Skip this step");
   };
   const handleChatWindow = () => {
     setWelcomeMessage(false);

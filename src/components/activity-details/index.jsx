@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Incorrectinfo from "../incorrect-info";
 import Correctinfo from "../correct-info";
 import Container from "react-bootstrap/Container";
+import Mintlogo from "../../assets/images/group.svg";
 
 /* the activity details component is where we are rendering the correct info and incorrect info components */
 const Renderbuttonwrapper = (props) => {
@@ -65,6 +66,12 @@ const Renderfinalcontent = (props) => {
         yesHaveMoreQuestions={props.yesHaveMoreQuestions}
         noIHaveNoQuestions={props.noIHaveNoQuestions}
         saleTypeLoader={props.saleTypeLoader}
+        removeBorder={props.removeBorder}
+        showUserMessage={props.showUserMessage}
+        showUserMessageComponent={props.showUserMessageComponent}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
+        hideErrorMessage={props.hideErrorMessage}
       />
     );
   } else if (check) {
@@ -87,6 +94,11 @@ const Renderfinalcontent = (props) => {
         inputFocusField={props.inputFocusField}
         handleIncorrectErrorPopup={props.handleIncorrectErrorPopup}
         errorFetchApi={props.errorFetchApi}
+        showUserMessage={props.showUserMessage}
+        showUserMessageComponent={props.showUserMessageComponent}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
+        hideErrorMessage={props.hideErrorMessage}
       />
     );
   }
@@ -97,10 +109,12 @@ const Activitydetails = (props) => {
   return (
     <>
       <Container>
+        <div className="mint-pro-logo" style={{ marginTop: "15px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
         <div className="chat-thread-left">
-          <p style={{ marginBottom: "15px" }}>
-            Do the details of activity points looks correct to you?
-          </p>
+          <p>Do the details of activity points looks correct to you?</p>
           <Renderbuttonwrapper
             showIncorrectSection={props.showIncorrectSection}
             showCorrectSection={props.showCorrectSection}
@@ -161,6 +175,13 @@ const Activitydetails = (props) => {
         yesHaveMoreQuestions={props.yesHaveMoreQuestions}
         noIHaveNoQuestions={props.noIHaveNoQuestions}
         saleTypeLoader={props.saleTypeLoader}
+        removeBorder={props.removeBorder}
+        showUserMessage={props.showUserMessage}
+        showUserMessageComponent={props.showUserMessageComponent}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
+        hideErrorMessage={props.hideErrorMessage}
+        hideErrorResponse={props.hideErrorResponse}
       />
     </>
   );

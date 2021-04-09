@@ -2,10 +2,15 @@
 .chat-thread-left {
     .button-wrapper {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
+        margin-top: 10px;
         button {
-            width: 40%;
+            width: 120px;
+            @media #{$mq7b} {
+                width: 114px;
+            }
             border: 0;
+            height: 40px;
             &:first-child {
                 background-color: #6c7375;
             }

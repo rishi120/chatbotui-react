@@ -1,6 +1,7 @@
 import React from "react";
 import Renderinputcomponents from "./Inputcomponents";
 import { v4 as uuidv4 } from "uuid";
+import dots from "../../assets/images/dot.gif";
 
 const Queryform = ({
   userName,
@@ -30,21 +31,33 @@ const Queryform = ({
   handleErrorPopUp,
   errorMessage,
   handleMissingErrorPopup,
+  showZendeskLoader,
+  disabledBtn,
 }) => {
   return (
     <>
-      <div className="query-thread">
+      <div className="">
         <div className="chat-thread-left">
           <p
             style={{
-              marginBottom: "15px",
-              padding: "0 10px 10px 10px 0",
+              // marginBottom: "15px",
+              paddingBottom: "10px",
               borderBottom: "1px solid #dedede",
             }}
           >
             {saleType}
           </p>
-          {saleTypeLoader && <p style={{ marginBottom: 0 }}>loading...</p>}
+          {saleTypeLoader && (
+            <p
+              style={{
+                marginBottom: 0,
+                fontStyle: "italic",
+              }}
+            >
+              <img src={dots} alt="dots" style={{ width: "50px" }} />
+              MintPro is Typing...
+            </p>
+          )}
           <ul className="option-list-style">
             {selectOptions.map((values) => {
               return (
@@ -81,6 +94,8 @@ const Queryform = ({
           handleErrorPopUp={handleErrorPopUp}
           errorMessage={errorMessage}
           handleMissingErrorPopup={handleMissingErrorPopup}
+          showZendeskLoader={showZendeskLoader}
+          disabledBtn={disabledBtn}
         />
 
         {/* <Button variant="primary" type="submit" className="form-submit-btn">

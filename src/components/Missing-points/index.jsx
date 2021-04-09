@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Mintlogo from "../../assets/images/group.svg";
 import Container from "react-bootstrap/Container";
 import Showsection from "../Missing-points/Showsections";
@@ -15,6 +15,7 @@ const RenderOptions = (props) => {
             key={values.listItems}
             style={props.listStyle}
             className="lists"
+            ref={props.noBorder}
           >
             {values.listItems}
           </li>
@@ -25,7 +26,6 @@ const RenderOptions = (props) => {
 };
 
 const Rendercomponent = (props) => {
-  console.log(props.handleErrorPopUp);
   const checkstateStatus = props.showLists;
   const stateStatus = props.showMissingBonus;
   const stateStatus1 = props.otherReasons;
@@ -56,6 +56,8 @@ const Rendercomponent = (props) => {
         handleErrorPopUp={props.handleErrorPopUp}
         errorMessage={props.errorMessage}
         handleMissingErrorPopup={props.handleMissingErrorPopup}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
       />
     );
   } else if (stateStatus) {
@@ -72,6 +74,11 @@ const Rendercomponent = (props) => {
         handleTicketPopUp={props.handleTicketPopUp}
         handleErrorPopUp={props.handleErrorPopUp}
         focusInputField={props.focusInputField}
+        showUserMessage={props.showUserMessage}
+        showUserMessageComponent={props.showUserMessageComponent}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
+        hideErrorMessage={props.hideErrorMessage}
       />
     );
   } else if (stateStatus1) {
@@ -86,6 +93,11 @@ const Rendercomponent = (props) => {
         errorMessage={props.errorMessage}
         handleTicketPopUp={props.handleTicketPopUp}
         handleErrorPopUp={props.handleErrorPopUp}
+        showUserMessage={props.showUserMessage}
+        showUserMessageComponent={props.showUserMessageComponent}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
+        hideErrorMessage={props.hideErrorMessage}
       />
     );
   }
@@ -101,15 +113,16 @@ const Missingpoints = (props) => {
       <Container>
         <div className="mint-pro-logo">
           <img src={Mintlogo} alt="logo" />
-          <p>Mint Pro</p>
+          <p>MintPro</p>
         </div>
         <div className="chat-thread-left" style={{ padding: "0" }}>
           <p
             style={{
-              paddingBottom: "15px",
+              paddingBottom: "10px",
               paddingLeft: "10px",
               paddingRight: "10px",
               paddingTop: "10px",
+              borderBottom: "1px solid #dedede",
             }}
           >
             Please select from one of the issues below
@@ -118,6 +131,7 @@ const Missingpoints = (props) => {
             renderLists={props.renderLists}
             handleLists={props.handleLists}
             listStyle={props.listStyle}
+            noBorder={props.noBorder}
           />
         </div>
         <Rendercomponent {...props} />

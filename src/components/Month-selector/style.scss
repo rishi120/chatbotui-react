@@ -1,6 +1,26 @@
 // @media #{$mq7b} {
 .month-wrapper {
     padding-top: 30px;
+    .mint-pro-logo {
+        display: flex;
+        align-items: center;
+        // padding-bottom: 10px;
+        img {
+            width: 16px;
+            height: 16px;
+            @include border-radius(50%);
+            background-color: $font-white;
+            padding: 2px;
+        }
+        p {
+            margin-bottom: 0;
+            padding-left: 5px;
+            font: 12px $roboto;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #121617;
+        }
+    }
     .loading-text {
         padding: 15px;
         font: 15px $roboto;
@@ -13,23 +33,34 @@
         border-bottom-right-radius: 20px;
         border-bottom-left-radius: 20px;
         padding: 20px 0 20px 0;
-        margin-top: 10px;
+        margin-top: 4px;
         margin-bottom: 20px;
-        width: 100%;
+        width: auto;
+        display: inline-block;
+        // max-width: 80%;
+        border: 1px solid #d2d5d6;
         h1 {
             font: 15px $roboto;
-            font-weight: 600;
             padding-left: 10px;
             margin-bottom: 0;
+            line-height: 22px;
         }
         .list-wrapper {
             padding-top: 20px;
             margin-bottom: 0;
+            &:nth-of-type(1) {
+                li {
+                    &:nth-of-type(1) {
+                        border-top: 1px solid #cccccc;
+                    }
+                }
+            }
             &:last-child {
                 padding-top: 0;
                 li {
                     &:last-child {
                         border-bottom: 0;
+                        padding-bottom: 0;
                     }
                 }
             }
@@ -41,6 +72,28 @@
                 display: flex;
                 justify-content: space-between;
                 color: #00a465;
+            }
+        }
+    }
+    .grid-right {
+        display: flex;
+        justify-content: flex-end;
+        .chat-thread-right {
+            background-color: #c7efff;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: 1px solid #d2d5d6;
+            padding: 10px;
+            width: auto;
+            max-width: 80%;
+            display: inline-block;
+            // margin-top: 10px;
+            // margin-bottom: 20px;
+            margin: 10px 0 10px 0;
+            p {
+                text-align: right;
+                margin-bottom: 0;
             }
         }
     }

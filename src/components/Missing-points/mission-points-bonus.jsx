@@ -12,18 +12,44 @@ const Renderticketmessage = (props) => {
   const checkTicketState = props.ticketCreated;
   if (checkTicketState) {
     return (
-      <div className="thank-you-popup">
-        <img
-          src={cancelIcon}
-          alt="cancel"
-          className="cancel-image"
-          onClick={props.handleTicketPopUp}
-        />
-        <p style={{ textAlign: "center" }}>
-          Your Ticket has been successfully created.A zendesk executive will
-          revert you back soon.
-        </p>
-      </div>
+      <>
+        <div className="mint-pro-logo" style={{ marginTop: "15px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p style={{ textAlign: "center", fontSize: "14px" }}>
+            Your Ticket has been successfully created.A zendesk executive will
+            revert you back soon.
+          </p>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
+
+const Renderzendeskloader = (props) => {
+  const checkLoaderState = props.showZendeskLoader;
+  if (checkLoaderState) {
+    return (
+      <>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p
+            style={{
+              marginBottom: 0,
+              fontStyle: "italic",
+            }}
+          >
+            <img src={dots} alt="dots" style={{ width: "50px" }} />
+            MintPro is Typing...
+          </p>
+        </div>
+      </>
     );
   }
   return null;
@@ -33,15 +59,27 @@ const Rendererrormessage = (props) => {
   const checkErrorStatus = props.errorMessage;
   if (checkErrorStatus) {
     return (
-      <div className="thank-you-popup" style={{ backgroundColor: "#f00" }}>
-        <img
-          src={cancelIcon}
-          alt="cancel"
-          className="cancel-image"
-          style={{ width: "20px" }}
-          onClick={props.handleErrorPopUp}
-        />
-        <p style={{ textAlign: "center" }}>Please provide a proper response</p>
+      <>
+        <div className="mint-pro-logo" style={{ marginTop: "15px" }}>
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p style={{ textAlign: "left" }}>Please provide a proper response</p>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
+const Renderusermessage = (props) => {
+  const checkComponentStatus = props.showUserMessageComponent;
+  if (checkComponentStatus) {
+    return (
+      <div className="grid-right">
+        <div className="chat-thread-right">
+          <p>{props.showUserMessage}</p>
+        </div>
       </div>
     );
   }
@@ -50,45 +88,49 @@ const Rendererrormessage = (props) => {
 
 const Missingpointsbonus = (props) => {
   const fixtobottom = {
-    // position: "fixed",
-    // bottom: "20px",
     width: "90%",
   };
   return (
     <>
+      {/* <Container> */}
+      <div className="grid-right">
+        <div className="chat-thread-right">
+          <p>{props.missingPoints}</p>
+        </div>
+      </div>
+
+      <div className="mint-pro-logo">
+        <img src={Mintlogo} alt="logo" />
+        <p>MintPro</p>
+      </div>
+      <div className="chat-thread-left">
+        {props.loadingAnyOtherQuestion && (
+          <p
+            style={{
+              marginBottom: 0,
+              fontStyle: "italic",
+            }}
+          >
+            <img src={dots} alt="dots" style={{ width: "50px" }} />
+            MintPro is Typing...
+          </p>
+        )}
+        <p>{props.showAnyOtherQuestion}</p>
+      </div>
+      <Rendererrormessage
+        errorMessage={props.errorMessage}
+        handleErrorPopUp={props.handleErrorPopUp}
+      />
+      <Renderusermessage
+        showUserMessageComponent={props.showUserMessageComponent}
+        showUserMessage={props.showUserMessage}
+      />
+      <Renderzendeskloader showZendeskLoader={props.showZendeskLoader} />
       <Renderticketmessage
         handleTicketPopUp={props.handleTicketPopUp}
         ticketCreated={props.ticketCreated}
       />
-      <Container>
-        <div className="chat-thread-right">
-          <p>{props.missingPoints}</p>
-        </div>
-
-        <div className="mint-pro-logo">
-          <img src={Mintlogo} alt="logo" />
-          <p>Mint Pro</p>
-        </div>
-        <div className="chat-thread-left">
-          {props.loadingAnyOtherQuestion && (
-            <p
-              style={{
-                marginBottom: 0,
-                paddingLeft: "10px",
-                fontStyle: "italic",
-              }}
-            >
-              <img src={dots} alt="dots" style={{ width: "50px" }} />
-              Mint Pro is Typing...
-            </p>
-          )}
-          <p>{props.showAnyOtherQuestion}</p>
-          <Rendererrormessage
-            errorMessage={props.errorMessage}
-            handleErrorPopUp={props.handleErrorPopUp}
-          />
-        </div>
-      </Container>
+      {/* </Container> */}
       <div className="fix-form-wrapper" style={{ padding: "10px" }}>
         <Form className="chat-form" onSubmit={props.handleMissingBonusForm}>
           <Form.Group>
@@ -100,9 +142,10 @@ const Missingpointsbonus = (props) => {
               ref={props.inputFocusField}
               id="getMissingBonusValue"
               autoComplete="off"
+              onChange={props.hideErrorMessage}
             />
           </Form.Group>
-          <Button type="submit" className="submit-btn">
+          <Button type="submit" className="submit-btn" ref={props.disabledBtn}>
             <img src={Sendicon} alt="send icon" />
           </Button>
         </Form>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CycleEntries from "../user-entry";
 import Activitypoints from "../Activity-points";
+import Container from "react-bootstrap/Container";
 
 const Renderactivitypoints = (props) => {
   const checkActivityPointsStatus = props.entries.length === 0;
@@ -30,16 +31,18 @@ const Entries = (props) => {
   return (
     <>
       <section className="entries-wrapper">
-        <Renderactivitypoints
-          entries={props.entries}
-          handleSelectUserEntry={props.handleSelectUserEntry}
-          handleMissingPointsClicked={props.handleMissingPointsClicked}
-          selectedMonth={props.selectedMonth}
-          handleMonthResult={props.handleMonthResult}
-          loadingSelectedMonth={props.loadingSelectedMonth}
-          showNoData={props.showNoData}
-          errorFetchApi={props.errorFetchApi}
-        />
+        <Container>
+          <Renderactivitypoints
+            entries={props.entries}
+            handleSelectUserEntry={props.handleSelectUserEntry}
+            handleMissingPointsClicked={props.handleMissingPointsClicked}
+            selectedMonth={props.selectedMonth}
+            handleMonthResult={props.handleMonthResult}
+            loadingSelectedMonth={props.loadingSelectedMonth}
+            showNoData={props.showNoData}
+            errorFetchApi={props.errorFetchApi}
+          />
+        </Container>
       </section>
     </>
   );

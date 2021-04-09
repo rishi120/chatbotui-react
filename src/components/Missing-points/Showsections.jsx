@@ -9,17 +9,18 @@ const Showsection = (props) => {
     paddingRight: "0",
   };
   return (
-    <Container>
-      <div className="chat-thread-right">
-        <p>Missing points for sale</p>
+    <>
+      <div className="grid-right">
+        <div className="chat-thread-right">
+          <p>Missing points for sale</p>
+        </div>
       </div>
 
       <div className="mint-pro-logo">
         <img src={Mintlogo} alt="logo" />
-        <p>Mint Pro</p>
+        <p>MintPro</p>
       </div>
       <Queryform
-        userName="Rajesh"
         selectOptions={props.selectOptions}
         showData={props.showData}
         handleShowOptions={props.handleShowOptions}
@@ -44,8 +45,10 @@ const Showsection = (props) => {
         handleErrorPopUp={props.handleErrorPopUp}
         errorMessage={props.errorMessage}
         handleMissingErrorPopup={props.handleMissingErrorPopup}
+        showZendeskLoader={props.showZendeskLoader}
+        disabledBtn={props.disabledBtn}
       />
-    </Container>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Mintlogo from "../../assets/images/group.svg";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import Sendicon from "../../assets/images/ico-solid-send.svg";
 import Hasmorequestion from "./Hasmorequestion";
 import Hasnoquestion from "./Hasnoquestions";
+import dots from "../../assets/images/dot.gif";
 
 const Correctinfo = (props) => {
   const Rendermoreoptions = () => {
@@ -24,6 +25,11 @@ const Correctinfo = (props) => {
           errorMessage={props.errorMessage}
           handleErrorPopUp={props.handleErrorPopUp}
           errorFetchApi={props.errorFetchApi}
+          showUserMessage={props.showUserMessage}
+          showUserMessageComponent={props.showUserMessageComponent}
+          showZendeskLoader={props.showZendeskLoader}
+          disabledBtn={props.disabledBtn}
+          hideErrorMessage={props.hideErrorMessage}
         />
       );
     } else if (checkOption) {
@@ -59,25 +65,30 @@ const Correctinfo = (props) => {
   return (
     <>
       <Container>
-        <div className="chat-thread-right">
-          <p>Yes, it looks correct</p>
+        <div className="grid-right">
+          <div className="chat-thread-right">
+            <p>Yes, it looks correct</p>
+          </div>
         </div>
+
         <div className="mint-pro-logo">
           <img src={Mintlogo} alt="logo" />
-          <p>Mint Pro</p>
+          <p>MintPro</p>
         </div>
         <div className="chat-thread-left">
           {props.saleTypeLoader && (
             <p
               style={{
                 marginBottom: 0,
+                fontStyle: "italic",
               }}
             >
-              Loading...
+              <img src={dots} alt="dots" style={{ width: "50px" }} />
+              MintPro is Typing...
             </p>
           )}
           <p style={{ paddingBottom: "10px" }}>{props.haveAnyOtherQuestion}</p>
-          <ul className="options">
+          <ul className="options" ref={props.removeBorder}>
             <li onClick={props.haveMoreQuestions}>
               {props.yesHaveMoreQuestions}
             </li>

@@ -14,7 +14,7 @@ const Renderfinalcomponent = (props) => {
         <Container>
           <div className="mint-pro-logo">
             <img src={Mintlogo} alt="logo" />
-            <p>Mint Pro</p>
+            <p>MintPro</p>
           </div>
           <div className="chat-thread-left">
             <p>
@@ -31,9 +31,9 @@ const Renderfinalcomponent = (props) => {
         <Container>
           <div className="mint-pro-logo">
             <img src={Mintlogo} alt="logo" />
-            <p>Mint Pro</p>
+            <p>MintPro</p>
           </div>
-          <div className="chat-thread-left">
+          <div className="chat-thread-left" style={{ width: "90%" }}>
             <div className="bottom-border">
               <div className="show-date">
                 <Moment format="ddd" style={{ fontWeight: "600" }}>
@@ -58,10 +58,10 @@ const Renderfinalcomponent = (props) => {
           </div>
           <div style={{ padding: "10px", width: "100%" }}></div>
 
-          <div className="mint-pro-logo">
+          {/* <div className="mint-pro-logo">
             <img src={Mintlogo} alt="logo" />
-            <p>Mint Pro</p>
-          </div>
+            <p>MintPro</p>
+          </div> */}
         </Container>
       </section>
     );
@@ -72,20 +72,26 @@ const Rendermonthdata = (props) => {
   const checkMonthDataStatus = props.showMonthData;
   if (checkMonthDataStatus) {
     return (
-      <h1
-        className="show-month-data"
-        onClick={(chandan) => props.handleMonthResult("chandan")}
-      >
-        Show All of {props.selectedMonth}
-        <img src={Rightarrow} alt="right-nav" />
-      </h1>
+      <>
+        <Container>
+          <div className="mint-pro-logo">
+            <img src={Mintlogo} alt="logo" />
+            <p>MintPro</p>
+          </div>
+          <div className="chat-thread-left">
+            <h1 className="show-month-data" onClick={props.handleMonthResult}>
+              Show All of {props.selectedMonth}
+              <img src={Rightarrow} alt="right-nav" />
+            </h1>
+          </div>
+        </Container>
+      </>
     );
   }
   return null;
 };
 
 const Selectedpolicy = (props) => {
-  console.log(props.saleType);
   return (
     <>
       <Rendermonthdata
@@ -131,6 +137,8 @@ const Selectedpolicy = (props) => {
         yesHaveMoreQuestions={props.yesHaveMoreQuestions}
         noIHaveNoQuestions={props.noIHaveNoQuestions}
         saleTypeLoader={props.saleTypeLoader}
+        removeBorder={props.removeBorder}
+        hideErrorMessage={props.hideErrorMessage}
       />
       <section className="query-wrapper">
         <Activitydetails
@@ -187,6 +195,12 @@ const Selectedpolicy = (props) => {
           yesHaveMoreQuestions={props.yesHaveMoreQuestions}
           noIHaveNoQuestions={props.noIHaveNoQuestions}
           saleTypeLoader={props.saleTypeLoader}
+          removeBorder={props.removeBorder}
+          showUserMessage={props.showUserMessage}
+          showUserMessageComponent={props.showUserMessageComponent}
+          showZendeskLoader={props.showZendeskLoader}
+          disabledBtn={props.disabledBtn}
+          hideErrorMessage={props.hideErrorMessage}
         />
       </section>
     </>
