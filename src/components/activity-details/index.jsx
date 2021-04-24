@@ -72,6 +72,8 @@ const Renderfinalcontent = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   } else if (check) {
@@ -99,6 +101,9 @@ const Renderfinalcontent = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        hideUl={props.hideUl}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   }
@@ -113,7 +118,7 @@ const Activitydetails = (props) => {
           <img src={Mintlogo} alt="logo" />
           <p>MintPro</p>
         </div>
-        <div className="chat-thread-left">
+        <div className="chat-thread-left scrollToBottom">
           <p>Do the details of activity points looks correct to you?</p>
           <Renderbuttonwrapper
             showIncorrectSection={props.showIncorrectSection}
@@ -182,6 +187,9 @@ const Activitydetails = (props) => {
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
         hideErrorResponse={props.hideErrorResponse}
+        hideUl={props.hideUl}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     </>
   );

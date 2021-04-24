@@ -8,6 +8,36 @@ import Sendicon from "../../assets/images/ico-solid-send.svg";
 import dots from "../../assets/images/dot.gif";
 import cancelIcon from "../../assets/images/cancel-white.png";
 
+const RenderZendeskApiError = (props) => {
+  const checkApiErrorState = props.zendeskApiError;
+  if (checkApiErrorState) {
+    return (
+      <>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p
+            style={{
+              fontSize: "15px",
+              color: "#f00",
+              padding: "10px",
+              paddingBottom: "0",
+              paddingTop: "0",
+              margin: "0",
+            }}
+          >
+            Opps! Your data could not be loaded, Please refresh your browser and
+            try again.
+          </p>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
+
 const Renderticketmessage = (props) => {
   const checkTicketState = props.ticketCreated;
   if (checkTicketState) {
@@ -64,7 +94,7 @@ const Rendererrormessage = (props) => {
           <img src={Mintlogo} alt="logo" />
           <p>MintPro</p>
         </div>
-        <div className="chat-thread-left">
+        <div className="chat-thread-left" ref={props.errorMessageRef}>
           <p style={{ textAlign: "left" }}>Please provide a proper response</p>
         </div>
       </>
@@ -120,12 +150,14 @@ const Missingpointsbonus = (props) => {
       <Rendererrormessage
         errorMessage={props.errorMessage}
         handleErrorPopUp={props.handleErrorPopUp}
+        errorMessageRef={props.errorMessageRef}
       />
       <Renderusermessage
         showUserMessageComponent={props.showUserMessageComponent}
         showUserMessage={props.showUserMessage}
       />
       <Renderzendeskloader showZendeskLoader={props.showZendeskLoader} />
+      <RenderZendeskApiError zendeskApiError={props.zendeskApiError} />
       <Renderticketmessage
         handleTicketPopUp={props.handleTicketPopUp}
         ticketCreated={props.ticketCreated}

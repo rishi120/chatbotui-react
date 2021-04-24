@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import Mintlogo from "../../assets/images/group.svg";
 import Container from "react-bootstrap/Container";
 import Showsection from "../Missing-points/Showsections";
@@ -7,7 +7,7 @@ import Otherreasons from "../Missing-points/Otherreasons";
 
 const RenderOptions = (props) => {
   return (
-    <ul className="options">
+    <ul className="options" ref={props.hideLists}>
       {props.renderLists.map((values) => {
         return (
           <li
@@ -58,6 +58,8 @@ const Rendercomponent = (props) => {
         handleMissingErrorPopup={props.handleMissingErrorPopup}
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   } else if (stateStatus) {
@@ -79,6 +81,8 @@ const Rendercomponent = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   } else if (stateStatus1) {
@@ -98,6 +102,8 @@ const Rendercomponent = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   }
@@ -122,7 +128,7 @@ const Missingpoints = (props) => {
               paddingLeft: "10px",
               paddingRight: "10px",
               paddingTop: "10px",
-              borderBottom: "1px solid #dedede",
+              // borderBottom: "1px solid #dedede",
             }}
           >
             Please select from one of the issues below
@@ -132,6 +138,7 @@ const Missingpoints = (props) => {
             handleLists={props.handleLists}
             listStyle={props.listStyle}
             noBorder={props.noBorder}
+            hideLists={props.hideLists}
           />
         </div>
         <Rendercomponent {...props} />

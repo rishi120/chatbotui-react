@@ -30,6 +30,8 @@ const Correctinfo = (props) => {
           showZendeskLoader={props.showZendeskLoader}
           disabledBtn={props.disabledBtn}
           hideErrorMessage={props.hideErrorMessage}
+          zendeskApiError={props.zendeskApiError}
+          errorMessageRef={props.errorMessageRef}
         />
       );
     } else if (checkOption) {

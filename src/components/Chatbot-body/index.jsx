@@ -71,6 +71,7 @@ const Chatbotbody = (props) => {
   const [ticketCreated, setTicketCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [errorFetchApi, setErrorFetchApi] = useState("");
+  const [zendeskApiError, setZendeskApiError] = useState(false);
   const [queryInputDisabled, setQueryInputDisabled] = useState(false);
   const [haveAnyOtherQuestion, setHaveAnyOtherQuestion] = useState();
   const [yesHaveMoreQuestions, setYesHaveMoreQuestions] = useState();
@@ -97,6 +98,9 @@ const Chatbotbody = (props) => {
   const removeBorder = useRef(0);
   const noBorder = useRef(0);
   const disabledBtn = useRef(null);
+  const hideUl = useRef(null);
+  const hideLists = useRef(null);
+  const errorMessageRef = useRef(null);
 
   useEffect(() => {
     /* implementing axios to fetch the api to get all the relevent months */
@@ -179,6 +183,13 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[7]) ||
       getinputValue.includes(blackListedWords[8])
     ) {
+      if (errorMessage) {
+        errorMessageRef.current.classList.add("animate-error-message");
+        setTimeout(() => {
+          errorMessageRef.current.classList.remove("animate-error-message");
+        }, 5000);
+      }
+
       setErrorMessage(true);
       // setshowAnyOtherQuestion("");
       setTimeout(() => {
@@ -211,13 +222,16 @@ const Chatbotbody = (props) => {
         .then((response) => {
           setTicketCreated(true);
           setShowZendeskLoader(false);
+          setZendeskApiError(false);
+          setErrorMessage(false);
           setTimeout(() => {
             inputFocusField.current.disabled = "disabled";
             disabledBtn.current.setAttribute("disabled", "disabled");
           }, 300);
         })
         .catch((error) => {
-          console.log("failed");
+          setZendeskApiError(true);
+          setShowZendeskLoader(false);
         });
     }
 
@@ -247,6 +261,12 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[7]) ||
       getinputValue.includes(blackListedWords[8])
     ) {
+      if (errorMessage) {
+        errorMessageRef.current.classList.add("animate-error-message");
+        setTimeout(() => {
+          errorMessageRef.current.classList.remove("animate-error-message");
+        }, 5000);
+      }
       setErrorMessage(true);
       // setshowAnyOtherQuestion("");
       setTimeout(() => {
@@ -280,13 +300,15 @@ const Chatbotbody = (props) => {
           setTicketCreated(true);
           setErrorMessage(false);
           setShowZendeskLoader(false);
+          setZendeskApiError(false);
           setTimeout(() => {
             inputFocusField.current.disabled = "disabled";
             disabledBtn.current.setAttribute("disabled", "disabled");
           }, 300);
         })
         .catch((error) => {
-          console.log("failed");
+          setZendeskApiError(true);
+          setShowZendeskLoader(false);
         });
     }
 
@@ -296,12 +318,12 @@ const Chatbotbody = (props) => {
   const [selectOptions, setSelectOptions] = useState([]);
 
   const handleLists = (getListId) => {
+    setTimeout(() => {
+      hideLists.current.style.display = "none";
+    }, 300);
     if (getListId === 1) {
       setSaleTypeLoader(true);
       setErrorFetchApi("");
-      // setTimeout(() => {
-      //   noBorder.current.style.borderBottom = "none";
-      // }, 300);
 
       Axios.get(
         "https://s7ju9b1vm0.execute-api.ap-southeast-1.amazonaws.com/CORS2/resp?query=Missing Points for sale &userID=as231"
@@ -518,6 +540,12 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[7]) ||
       getinputValue.includes(blackListedWords[8])
     ) {
+      if (errorMessage) {
+        errorMessageRef.current.classList.add("animate-error-message");
+        setTimeout(() => {
+          errorMessageRef.current.classList.remove("animate-error-message");
+        }, 5000);
+      }
       setErrorMessage(true);
       setTimeout(() => {
         focusInput.current.focus();
@@ -530,6 +558,7 @@ const Chatbotbody = (props) => {
         setInputProvider(replyText);
         setReplyText("");
         setLoadingAnyOtherQuestion(true);
+        setErrorMessage(false);
         Axios.get(
           "https://s7ju9b1vm0.execute-api.ap-southeast-1.amazonaws.com/CORS2/resp?query=inputprovider&userID=asd123"
         )
@@ -552,11 +581,11 @@ const Chatbotbody = (props) => {
         setSalesDetailsType("policy_number");
         setCustomerName(replyText);
         setLoadingAnyOtherQuestion(true);
+        setErrorMessage(false);
         Axios.get(
           "https://s7ju9b1vm0.execute-api.ap-southeast-1.amazonaws.com/CORS2/resp?query=CustomerName&userID=asd123"
         )
           .then((response) => {
-            console.log(response.data.Text);
             setQueryResponseObject({
               ...queryResponseObject,
               policyNumber: response.data.Text,
@@ -572,6 +601,7 @@ const Chatbotbody = (props) => {
         setQueryInputDisabled(true);
         // setHideFormElement(false);
         setPolicyNumber(replyText);
+        setErrorMessage(false);
         const dataObj = {
           inputProvider: inputProvider,
           customerName: customerName,
@@ -595,15 +625,18 @@ const Chatbotbody = (props) => {
           },
         })
           .then((response) => {
-            console.log(response);
             setTicketCreated(true);
+            setZendeskApiError(false);
+            setShowZendeskLoader(false);
+            setErrorMessage(false);
             setTimeout(() => {
               focusInput.current.disabled = "disabled";
               disabledBtn.current.setAttribute("disabled", "disabled");
             }, 300);
           })
           .catch((error) => {
-            console.log("failed");
+            setZendeskApiError(true);
+            setShowZendeskLoader(false);
           });
       }
     }
@@ -623,11 +656,11 @@ const Chatbotbody = (props) => {
 
   const handleReplyText = (newReplyText) => {
     setReplyText(newReplyText);
-    setErrorMessage(false);
+    // setErrorMessage(false);
   };
 
   const hideErrorMessage = () => {
-    setErrorMessage(false);
+    // setErrorMessage(false);
   };
 
   const handleSelectUserEntry = (userEntry) => {
@@ -702,7 +735,7 @@ const Chatbotbody = (props) => {
     setShowIssueOptionList(true);
     setLoadingAnyOtherQuestion(true);
     setTimeout(() => {
-      // focusIncorrectInputField.current.disabled = "disabled";
+      hideUl.current.style.display = "none";
       focusIncorrectInputField.current.focus();
     }, 300);
     setErrorFetchApi("");
@@ -749,6 +782,13 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[7]) ||
       getinputValue.includes(blackListedWords[8])
     ) {
+      if (errorMessage) {
+        errorMessageRef.current.classList.add("animate-error-message");
+        setTimeout(() => {
+          errorMessageRef.current.classList.remove("animate-error-message");
+        }, 5000);
+      }
+
       setErrorMessage(true);
       // setshowAnyOtherQuestion("");
       setTimeout(() => {
@@ -781,13 +821,15 @@ const Chatbotbody = (props) => {
           setTicketCreated(true);
           setErrorMessage(false);
           setShowZendeskLoader(false);
+          setZendeskApiError(false);
           setTimeout(() => {
             focusIncorrectInputField.current.disabled = "disabled";
             disabledBtn.current.disabled = "disabled";
           }, 300);
         })
         .catch((error) => {
-          console.log("failed");
+          setZendeskApiError(true);
+          setShowZendeskLoader(false);
         });
     }
 
@@ -924,6 +966,13 @@ const Chatbotbody = (props) => {
       getinputValue.includes(blackListedWords[7]) ||
       getinputValue.includes(blackListedWords[8])
     ) {
+      if (errorMessage) {
+        errorMessageRef.current.classList.add("animate-error-message");
+        setTimeout(() => {
+          errorMessageRef.current.classList.remove("animate-error-message");
+        }, 5000);
+      }
+
       setErrorMessage(true);
       setTimeout(() => {
         inputFocusField.current.focus();
@@ -953,16 +1002,18 @@ const Chatbotbody = (props) => {
       })
         .then((response) => {
           setTicketCreated(true);
-          setShowUserMessageComponent(false);
+          setShowUserMessageComponent(true);
           setErrorMessage(false);
           setShowZendeskLoader(false);
+          setZendeskApiError(false);
           setTimeout(() => {
             inputFocusField.current.disabled = "disabled";
             disabledBtn.current.setAttribute("disabled", "disabled");
           }, 300);
         })
         .catch((error) => {
-          console.log("failed");
+          setZendeskApiError(true);
+          setShowZendeskLoader(false);
         });
     }
 
@@ -1066,6 +1117,9 @@ const Chatbotbody = (props) => {
               showZendeskLoader={showZendeskLoader}
               disabledBtn={disabledBtn}
               hideErrorMessage={hideErrorMessage}
+              hideUl={hideUl}
+              zendeskApiError={zendeskApiError}
+              errorMessageRef={errorMessageRef}
             />
           )}
           {selectedMonth && missingPointsClicked && (
@@ -1117,6 +1171,9 @@ const Chatbotbody = (props) => {
               showZendeskLoader={showZendeskLoader}
               disabledBtn={disabledBtn}
               hideErrorMessage={hideErrorMessage}
+              hideLists={hideLists}
+              zendeskApiError={zendeskApiError}
+              errorMessageRef={errorMessageRef}
             />
           )}
         </div>
@@ -1209,6 +1266,11 @@ const Triggerchatbody = (props) => {
         delay: 1.2,
         ease: Power2.easeInOut,
       });
+      return () => {
+        selectHello.kill();
+        selectTurtlemintMessage.kill();
+        selectChatButton.kill();
+      };
     }, []);
     const checkWelcomeStatus = welcomeMessage;
     if (checkWelcomeStatus) {

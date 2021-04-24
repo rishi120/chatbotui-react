@@ -32,6 +32,36 @@ const ChatThreadLeft = (props) => {
     </>
   );
 };
+
+const RenderZendeskApiError = (props) => {
+  const checkApiErrorState = props.zendeskApiError;
+  if (checkApiErrorState) {
+    return (
+      <>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p
+            style={{
+              fontSize: "15px",
+              color: "#f00",
+              padding: "10px",
+              paddingBottom: "0",
+              paddingTop: "0",
+              margin: "0",
+            }}
+          >
+            Opps! Your data could not be loaded, Please refresh your browser and
+            try again.
+          </p>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
 const Renderzendeskloader = (props) => {
   const checkLoaderState = props.showZendeskLoader;
   if (checkLoaderState) {
@@ -88,7 +118,7 @@ const Rendererrormessage = (props) => {
           <img src={Mintlogo} alt="logo" />
           <p>MintPro</p>
         </div>
-        <div className="chat-thread-left">
+        <div className="chat-thread-left" ref={props.errorMessageRef}>
           <p style={{ textAlign: "center" }}>
             Please provide a proper response
           </p>
@@ -204,6 +234,7 @@ const Inputpolicynumber = (props) => {
           </div>
         )}
         <Renderzendeskloader showZendeskLoader={props.showZendeskLoader} />
+        <RenderZendeskApiError zendeskApiError={props.zendeskApiError} />
         <Renderticketmessage
           ticketCreated={props.ticketCreated}
           handleTicketPopUp={props.handleTicketPopUp}
@@ -254,10 +285,12 @@ const Renderinputcomponents = (props) => {
         handleTicketPopUp={props.handleTicketPopUp}
         handleErrorPopUp={props.handleErrorPopUp}
         showZendeskLoader={props.showZendeskLoader}
+        zendeskApiError={props.zendeskApiError}
       />
       <Rendererrormessage
         errorMessage={props.errorMessage}
         handleMissingErrorPopup={props.handleMissingErrorPopup}
+        errorMessageRef={props.errorMessageRef}
       />
     </>
   );

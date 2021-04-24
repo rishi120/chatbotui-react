@@ -33,6 +33,8 @@ const Queryform = ({
   handleMissingErrorPopup,
   showZendeskLoader,
   disabledBtn,
+  zendeskApiError,
+  errorMessageRef,
 }) => {
   return (
     <>
@@ -96,6 +98,8 @@ const Queryform = ({
           handleMissingErrorPopup={handleMissingErrorPopup}
           showZendeskLoader={showZendeskLoader}
           disabledBtn={disabledBtn}
+          zendeskApiError={zendeskApiError}
+          errorMessageRef={errorMessageRef}
         />
 
         {/* <Button variant="primary" type="submit" className="form-submit-btn">

@@ -26,10 +26,10 @@ const RenderIncorrectInfo = (props) => {
           <p>MintPro</p>
         </div>
         <div className="chat-thread-left">
-          <p style={{ marginBottom: "15px" }}>
+          <p style={{ marginBottom: "0" }}>
             Please help us understand your concern by selecting your issue
           </p>
-          <ul className="options">
+          <ul className="options" ref={props.hideUl}>
             {props.issueOptionList.map((issues) => {
               return (
                 <li
@@ -48,6 +48,36 @@ const RenderIncorrectInfo = (props) => {
       </Container>
     </>
   );
+};
+
+const RenderZendeskApiError = (props) => {
+  const checkApiErrorState = props.zendeskApiError;
+  if (checkApiErrorState) {
+    return (
+      <>
+        <div className="mint-pro-logo">
+          <img src={Mintlogo} alt="logo" />
+          <p>MintPro</p>
+        </div>
+        <div className="chat-thread-left">
+          <p
+            style={{
+              fontSize: "15px",
+              color: "#f00",
+              padding: "10px",
+              paddingBottom: "0",
+              paddingTop: "0",
+              margin: "0",
+            }}
+          >
+            Opps! Your data could not be loaded, Please refresh your browser and
+            try again.
+          </p>
+        </div>
+      </>
+    );
+  }
+  return null;
 };
 
 const Renderticketmessage = (props) => {
@@ -80,7 +110,7 @@ const Rendererrormessage = (props) => {
           <img src={Mintlogo} alt="logo" />
           <p>MintPro</p>
         </div>
-        <div className="chat-thread-left">
+        <div className="chat-thread-left" ref={props.errorMessageRef}>
           <p style={{ textAlign: "center" }}>
             Please provide a proper response
           </p>
@@ -184,12 +214,14 @@ const Showmorecontent = (props) => {
         <Rendererrormessage
           errorMessage={props.errorMessage}
           handleIncorrectErrorPopup={props.handleIncorrectErrorPopup}
+          errorMessageRef={props.errorMessageRef}
         />
         <Renderusermessage
           showUserMessageComponent={props.showUserMessageComponent}
           showUserMessage={props.showUserMessage}
         />
         <Renderzendeskloader showZendeskLoader={props.showZendeskLoader} />
+        <RenderZendeskApiError zendeskApiError={props.zendeskApiError} />
         <Renderticketmessage
           ticketCreated={props.ticketCreated}
           handleTicketPopUp={props.handleTicketPopUp}
@@ -250,6 +282,8 @@ const Rendermorecontent = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     );
   }
@@ -263,6 +297,7 @@ const Incorrectinfo = (props) => {
         issueOptionList={props.issueOptionList}
         handleShowIssueOptionList={props.handleShowIssueOptionList}
         removeBorder={props.removeBorder}
+        hideUl={props.hideUl}
       />
       <Rendermorecontent
         showAnyOtherQuestion={props.showAnyOtherQuestion}
@@ -283,6 +318,8 @@ const Incorrectinfo = (props) => {
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
         hideErrorMessage={props.hideErrorMessage}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     </>
   );

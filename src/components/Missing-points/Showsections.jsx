@@ -47,6 +47,8 @@ const Showsection = (props) => {
         handleMissingErrorPopup={props.handleMissingErrorPopup}
         showZendeskLoader={props.showZendeskLoader}
         disabledBtn={props.disabledBtn}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
     </>
   );

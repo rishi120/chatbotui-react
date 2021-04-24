@@ -139,6 +139,9 @@ const Selectedpolicy = (props) => {
         saleTypeLoader={props.saleTypeLoader}
         removeBorder={props.removeBorder}
         hideErrorMessage={props.hideErrorMessage}
+        hideUl={props.hideUl}
+        zendeskApiError={props.zendeskApiError}
+        errorMessageRef={props.errorMessageRef}
       />
       <section className="query-wrapper">
         <Activitydetails
@@ -201,6 +204,9 @@ const Selectedpolicy = (props) => {
           showZendeskLoader={props.showZendeskLoader}
           disabledBtn={props.disabledBtn}
           hideErrorMessage={props.hideErrorMessage}
+          hideUl={props.hideUl}
+          zendeskApiError={props.zendeskApiError}
+          errorMessageRef={props.errorMessageRef}
         />
       </section>
     </>
